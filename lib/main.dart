@@ -27,57 +27,7 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-  }
-
-
-/*class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-       backgroundColor: Colors.green[600],
-        body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              child: Text(
-                  'Tip Calculator',
-                   style: TextStyle(fontSize: 40, color: Colors.grey[200]),),
-            ),
-            Flexible(
-              child: FractionallySizedBox(
-                heightFactor: 0.4,
-              ),
-            ),
-            Flexible(
-              child: FractionallySizedBox(
-                heightFactor: 0.17,
-                widthFactor: 0.4,
-                child: RaisedButton(
-                  color: Colors.grey[200],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => bottomBar())
-                    );
-                  },
-                  child: Text(
-                    "Next",
-                    style: TextStyle(fontSize: 20, color: Colors.green[800],)
-                  ),
-                ),
-              )
-            )
-          ],
-        ),
-      )
-    );
-  }
-}*/
+}
 
 class BottomBar extends StatefulWidget {
   @override
@@ -98,6 +48,46 @@ class _BottomBarState extends State<BottomBar> {
     });
   }
 
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Row(
+        children: <Widget>[
+          NavigationRail(
+            onDestinationSelected: (int index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+              selectedIndex: _currentIndex,
+              labelType: NavigationRailLabelType.selected,
+              destinations: const <NavigationRailDestination>[
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite_border),
+                  selectedIcon: Icon(Icons.favorite),
+                  label: Text('First'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.bookmark_border),
+                  selectedIcon: Icon(Icons.book),
+                  label: Text('Second'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.star_border),
+                  selectedIcon: Icon(Icons.star),
+                  label: Text('Third'),
+                ),
+              ],
+              ),
+          VerticalDivider(thickness: 1, width: 1),
+          Expanded(child: children[_currentIndex]),
+        ],
+      ),
+    );
+  }
+
+
+/*
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -126,5 +116,5 @@ class _BottomBarState extends State<BottomBar> {
         ],
       ),
     );
-  }
+  }*/
 }
