@@ -36,8 +36,8 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 0;
+  String _title = 'GardenGuide';
   final List<Widget> children = [
-    Home(),
     Calculator(),
     Settings(),
   ];
@@ -48,6 +48,43 @@ class _BottomBarState extends State<BottomBar> {
     });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      body: children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        iconSize: 25,
+        selectedFontSize: 15,
+        //selectedItemColor: Colors.grey[200],
+        //unselectedItemColor: Colors.grey[400],
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Calculator'),
+          BottomNavigationBarItem(icon: Icon(Icons.help), label: 'Settings'),
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+            switch (index) {
+              case 0:
+                {
+                  _title = 'Calculator';
+                }
+                break;
+              case 1:
+                {
+                  _title = 'Settings';
+                }
+                break;
+            }
+          });
+        },
+      ),
+    );
+  }
+/*
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -84,7 +121,7 @@ class _BottomBarState extends State<BottomBar> {
         ],
       ),
     );
-  }
+  }*/
 
 
 /*
