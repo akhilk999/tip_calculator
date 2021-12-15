@@ -16,7 +16,14 @@ class _SettingsState extends State<Settings> {
       body: Center(
         child: Column(
           children: [
-            Text('Settings'),
+            Container(
+              height: 200
+            ),
+            Text('Settings',
+                style: new TextStyle(
+                fontSize: 20.0,
+              ),
+            ),
             Switch(
                 value: isSwitched,
                 onChanged: (state){
