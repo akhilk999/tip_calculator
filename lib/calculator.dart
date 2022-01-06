@@ -4,6 +4,7 @@ import 'package:tip_calculator/main.dart';
  String region ='';
 var billAmount = 0;
 double tipAmount = 0;
+double tipAmount2 = 0;
 class Calculator extends StatefulWidget {
   const Calculator({Key key}) : super(key: key);
   @override
@@ -44,7 +45,7 @@ class _CalculatorState extends State<Calculator> {
                       children:[
                         Container(height: 100),
                         Container(
-                          width: 200,
+                          width: 800,
                           child: TextField(
                             controller: textController,
                             textAlign: TextAlign.center,
@@ -86,7 +87,7 @@ class _CalculatorState extends State<Calculator> {
                         //Text((tipAmount.round()/100).toString()),
                         Container(height: 50),
                         Container(
-                            width: 500,
+                            width: 800,
                             padding: const EdgeInsets.all(10.0),
                             decoration: myBoxDecoration(),
                             //double.parse((12.3412).toStringAsFixed(2));
@@ -94,7 +95,7 @@ class _CalculatorState extends State<Calculator> {
                         ),
                         Container(height: 10),
                         Container(
-                          width: 500,
+                          width: 800,
                           padding: const EdgeInsets.all(10.0),
                           decoration: myBoxDecoration(),
                             //double.parse((12.3412).toStringAsFixed(2));
@@ -113,9 +114,17 @@ class _CalculatorState extends State<Calculator> {
                           onChanged: (double value){
                             setState(() {
                               _currentSliderValue2 = value;
-                              tipAmount = value;
+                              tipAmount2 = value;
                             });
                           },
+                        ),
+                        Container(height: 10),
+                        Container(
+                            width: 800,
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: myBoxDecoration(),
+                            //double.parse((12.3412).toStringAsFixed(2));
+                            child: Text("Total + Tip per person : "+r"$"+double.parse(((billAmount + (tipAmount/100*billAmount))/tipAmount2).toStringAsFixed(2)).toString(), style: new TextStyle(fontSize: 20.0),)
                         ),
                       ]
                   ),
