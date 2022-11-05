@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tip_calculator/main.dart';
 
  String region ='';
-var billAmount = 0;
-double tipAmount = 0;
-double tipAmount2 = 0;
+//var tipAmount3 = tipAmount == 0 ? ((billAmount + (tipAmount/100*billAmount))/tipAmount2);
+
 class Calculator extends StatefulWidget {
   const Calculator({Key key}) : super(key: key);
   @override
@@ -22,15 +20,21 @@ class _CalculatorState extends State<Calculator> {
       ),
     );
   }
-  double _currentSliderValue = 10;
-  double _currentSliderValue2 = 15;
+
+  double billAmount = 0;
+  double tipAmount = 0;
+  double tipPercent = 10;
+  double totalWithTip = 0;
+  double amountPeople = 1;
+  double totalAmount = 0;
+
   int charLength = 0;
   TextEditingController textController = new TextEditingController();
   _onChanged(String value) {
     setState(() {
       charLength = value.length;
     });
-    billAmount = int.parse(textController.text);
+    billAmount = textController.text.isEmpty ? 0: double.parse(textController.text);
   }
   @override
   Widget build(BuildContext context) {
@@ -40,10 +44,10 @@ class _CalculatorState extends State<Calculator> {
           child: Column(
             children: [
               Container(
-                width: 200,
+                width: 250,
                 child: Column(
                       children:[
-                        Container(height: 100),
+                        Container(height: 50),
                         Container(
                           width: 800,
                           child: TextField(
@@ -66,32 +70,33 @@ class _CalculatorState extends State<Calculator> {
                             onChanged: _onChanged,
                           ),
                         ),
-                        Container(height: 50),
+                        Container(height: 75),
                         Text('Tip %',
                           style: new TextStyle(fontSize: 20.0),
                         ),
                         Container(height: 10),
                         Slider(
-                          value: _currentSliderValue,
+                          value: tipPercent,
                           max:20,
                           divisions: 20,
-                          label: _currentSliderValue.round().toString() + "%",
+                          label: tipPercent.round().toString() + "%",
                           onChanged: (double value){
                             setState(() {
-                              _currentSliderValue = value;
-                              tipAmount = value;
+                              tipPercent = value;
+                              tipAmount = (tipPercent/100*billAmount);
+                              totalWithTip = billAmount + tipAmount;
                             });
                           },
                         ),
                         //Text(billAmount.toString()),
                         //Text((tipAmount.round()/100).toString()),
-                        Container(height: 50),
+                        Container(height: 25),
                         Container(
                             width: 800,
                             padding: const EdgeInsets.all(10.0),
                             decoration: myBoxDecoration(),
                             //double.parse((12.3412).toStringAsFixed(2));
-                            child: Text("Tip: "+r"$"+double.parse((tipAmount/100*billAmount).toStringAsFixed(2)).toString(), style: new TextStyle(fontSize: 20.0),)
+                            child: Text("Tip: "+r"$"+tipAmount.toStringAsFixed(2), style: new TextStyle(fontSize: 20.0),)
                         ),
                         Container(height: 10),
                         Container(
@@ -99,7 +104,7 @@ class _CalculatorState extends State<Calculator> {
                           padding: const EdgeInsets.all(10.0),
                           decoration: myBoxDecoration(),
                             //double.parse((12.3412).toStringAsFixed(2));
-                          child: Text("Total with Tip: "+r"$"+double.parse((billAmount + (tipAmount/100*billAmount)).toStringAsFixed(2)).toString(), style: new TextStyle(fontSize: 20.0),)
+                          child: Text("Total with Tip: "+r"$"+totalWithTip.toStringAsFixed(2), style: new TextStyle(fontSize: 20.0),)
                         ),
                         Container(height: 50),
                         Text('Amount of Split People',
@@ -107,14 +112,15 @@ class _CalculatorState extends State<Calculator> {
                         ),
                         Container(height: 10),
                         Slider(
-                          value: _currentSliderValue2,
+                          value: amountPeople,
+                          min: 1,
                           max:30,
                           divisions: 30,
-                          label: _currentSliderValue2.round().toString() + " people",
+                          label: amountPeople.round().toString() + " people",
                           onChanged: (double value){
                             setState(() {
-                              _currentSliderValue2 = value;
-                              tipAmount2 = value;
+                              amountPeople = value;
+                              totalAmount = totalWithTip/amountPeople;
                             });
                           },
                         ),
@@ -123,8 +129,7 @@ class _CalculatorState extends State<Calculator> {
                             width: 800,
                             padding: const EdgeInsets.all(10.0),
                             decoration: myBoxDecoration(),
-                            //double.parse((12.3412).toStringAsFixed(2));
-                            child: Text("Total + Tip per person : "+r"$"+double.parse(((billAmount + (tipAmount/100*billAmount))/tipAmount2).toStringAsFixed(2)).toString(), style: new TextStyle(fontSize: 20.0),)
+                            child: Text("Total + Tip per person : "+r"$"+totalAmount.toStringAsFixed(2), style: new TextStyle(fontSize: 20.0),)
                         ),
                       ]
                   ),

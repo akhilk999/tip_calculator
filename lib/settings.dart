@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:ui';
-import 'package:tip_calculator/main.dart';
 
 class Settings extends StatefulWidget {
   @override

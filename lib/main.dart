@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tip_calculator/calculator.dart';
-import 'package:tip_calculator/home.dart';
 import 'package:tip_calculator/settings.dart';
 
 void main() {
@@ -36,7 +35,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 0;
-  String _title = 'GardenGuide';
+  String _title = 'TipCalculator';
   final List<Widget> children = [
     Calculator(),
     Settings(),
